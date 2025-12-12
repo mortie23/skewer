@@ -1,0 +1,24 @@
+[project]
+name = "skewer"
+version = "0.1.0"
+description = "Teradata table viewer"
+readme = "README.md"
+authors = [
+    { name = "Christopher Mortimer", email = "christopher@mortimer.xyz" },
+]
+requires-python = ">=3.13"
+dependencies = [
+    "bootstrap-flask>=2.5.0",
+    "flask>=3.1.2",
+    "teradatasql>=20.0.0.48",
+]
+
+[project.scripts]
+skewer = "skewer:main"
+
+[build-system]
+requires = ["uv_build>=0.9.17,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = ["pytest>=9.0.2", "pytest-mock>=3.15.1"]
