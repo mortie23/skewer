@@ -1,12 +1,15 @@
 import os
 import tomllib
 from pathlib import Path
+from typing import Dict, Any
 
 
-def load_config():
+def load_config() -> Dict[str, Any]:
     """
     Load Teradata configuration from ~/.skewer.toml
-    Returns a dict with secrets.
+
+    :return: A dictionary containing initialization parameters for teradatasql.connect.
+             Returns empty dict if file not found or on error.
     """
     config_path = Path.home() / ".skewer.toml"
 

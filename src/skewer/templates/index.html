@@ -10,6 +10,7 @@
                 Connection Status: <strong>{{ conn_status }}</strong>
             </div>
             <div class="card-body">
+                <a href="{{ url_for('database_list') }}" class="btn btn-primary mb-3">Browse Databases</a>
                 {% if db_info %}
                 <h5 class="card-title">DBC Properties</h5>
                 <table class="table table-striped">

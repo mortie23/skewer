@@ -1,8 +1,15 @@
-import teradatasql
-from flask import current_app, g
+import teradatasql  # type: ignore
+from flask import current_app, g, Flask
+from typing import Any
 
 
-def get_db():
+def get_db() -> Any:
+    """
+    Get or create a Teradata connection for the current request context.
+
+    :return: A teradatasql connection object.
+    :raises RuntimeError: If TERADATA_CONFIG is missing from app config.
+    """
     if "db" not in g:
         config = current_app.config.get("TERADATA_CONFIG", {})
         if not config:
@@ -20,7 +27,12 @@ def get_db():
     return g.db
 
 
-def close_db(e=None):
+def close_db(e: Any = None) -> None:
+    """
+    Close the database connection if it exists.
+
+    :param e: The exception that caused the teardown, if any.
+    """
     db = g.pop("db", None)
 
     if db is not None:

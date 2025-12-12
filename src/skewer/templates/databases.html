@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">Select Database</h1>
+
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <div class="list-group">
+            {% for db in databases %}
+            <a href="{{ url_for('table_list', database_name=db) }}" class="list-group-item list-group-item-action">
+                {{ db }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

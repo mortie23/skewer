@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('database_list') }}">Databases</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('table_list', database_name=database_name) }}">{{
+                        database_name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ table_name }}</li>
+            </ol>
+        </nav>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>{{ table_name }} <small class="text-muted">(Page {{ page }})</small></h2>
+            <a href="{{ url_for('record_detail', database_name=database_name, table_name=table_name) }}"
+                class="btn btn-outline-primary">Lookup Record</a>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        {% if columns %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-sm">
+                <thead class="table-light">
+                    <tr>
+                        {% for col in columns %}
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item {% if not prev_page %}disabled{% endif %}">
+                    <a class="page-link"
+                        href="{{ url_for('table_sample', database_name=database_name, table_name=table_name, page=prev_page) if prev_page else '#' }}">Previous</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Page {{ page }}</span>
+                </li>
+                <li class="page-item {% if not rows or rows|length < 100 %}disabled{% endif %}">
+                    <!-- Simple logic: if less than limit rows, probably no next page. -->
+                    <a class="page-link"
+                        href="{{ url_for('table_sample', database_name=database_name, table_name=table_name, page=next_page) }}">Next</a>
+                </li>
+            </ul>
+        </nav>
+        {% elif not error %}
+        <p class="text-muted">No data found or empty table.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

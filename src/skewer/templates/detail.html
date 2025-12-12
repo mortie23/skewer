@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('database_list') }}">Databases</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('table_list', database_name=database_name) }}">{{
+                        database_name }}</a></li>
+                <li class="breadcrumb-item"><a
+                        href="{{ url_for('table_sample', database_name=database_name, table_name=table_name) }}">{{
+                        table_name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail Lookup</li>
+            </ol>
+        </nav>
+
+        <h2 class="mb-4">Find Record</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-md-5">
+                        <label for="key_column" class="form-label">Column Name (e.g. ID)</label>
+                        <input type="text" class="form-control" id="key_column" name="key_column"
+                            value="{{ key_column }}" required>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="key_value" class="form-label">Value</label>
+                        <input type="text" class="form-control" id="key_value" name="key_value" value="{{ key_value }}"
+                            required>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        {% if record %}
+        <div class="card">
+            <div class="card-header">
+                Record Details
+            </div>
+            <div class="card-body">
+                <!-- Using a description list-like structure or just simple forms for display -->
+                <form>
+                    {% for i in range(columns|length) %}
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label fw-bold text-end">{{ columns[i] }}</label>
+                        <div class="col-sm-9">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ record[i] }}">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

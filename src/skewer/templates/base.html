@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     {% block head %}
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,13 +14,29 @@
 
     <title>{% block title %}Skewer{% endblock %}</title>
     {% endblock %}
-  </head>
-  <body>
+</head>
+
+<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('index') }}">Skewer</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('database_list') }}">Databases</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
+
+    <div id="loading-overlay"
+        class="d-none position-fixed w-100 h-100 top-0 start-0 d-flex justify-content-center align-items-center"
+        style="background: rgba(255,255,255,0.7); z-index: 9999;">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
     <div class="container">
         {% block content %}{% endblock %}
@@ -28,6 +45,8 @@
     {% block scripts %}
     <!-- Optional JavaScript -->
     {{ bootstrap.load_js() }}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% endblock %}
-  </body>
+</body>
+
 </html>

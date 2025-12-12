@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('database_list') }}">Databases</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ database_name }}</li>
+            </ol>
+        </nav>
+
+        <h1 class="mb-4">Tables in {{ database_name }}</h1>
+
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <div class="list-group">
+            {% for table in tables %}
+            <!-- table is a tuple (TableName, TableKind, CommentString) -->
+            <a href="{{ url_for('table_sample', database_name=database_name, table_name=table[0]) }}"
+                class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ table[0] }}</h5>
+                    <small>{{ table[1] }}</small>
+                </div>
+                {% if table[2] %}
+                <p class="mb-1">{{ table[2] }}</p>
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
