@@ -54,5 +54,18 @@ Open your browser and navigate to `http://127.0.0.1:5000`.
 ## Features
 
 - **Connection Check**: Verifies database connection on the home page.
-- **Table Viewer** (Coming Soon): View tables with pagination.
-- **Record Detail** (Coming Soon): View individual records in a form layout.
+- **Table Viewer**: Browse database tables.
+- **Table Sample**: View paginated sample data from tables.
+- **Record Detail**: Lookup and view individual records with detail.
+
+## Deployment
+
+### Posit Connect
+
+To deploy to Posit Connect using `rsconnect-python`, ensure you have the `dev` dependencies installed or add `rsconnect-python` to your environment.
+
+Run the following command:
+
+```sh
+uv run rsconnect deploy flask -s <CONNECT_SERVER_URL> -k <API_KEY> -t "Skewer" ./ wsgi.py
+```
