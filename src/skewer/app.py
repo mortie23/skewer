@@ -144,11 +144,12 @@ def create_app(
 
         columns = []
         record = None
+        count = 0
         error = None
 
         if key_column and key_value:
             try:
-                columns, record = schema.get_record(
+                columns, record, count = schema.get_record(
                     database_name, table_name, key_column, key_value
                 )
                 if not record:
@@ -164,6 +165,7 @@ def create_app(
             key_value=key_value,
             columns=columns,
             record=record,
+            count=count,
             error=error,
         )
 

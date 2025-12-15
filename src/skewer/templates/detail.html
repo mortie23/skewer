@@ -41,6 +41,10 @@
         <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
 
+        {% if count and count > 1 %}
+        <div class="alert alert-info">{{ count }} records found matching this search, displaying the first</div>
+        {% endif %}
+
         {% if record %}
         <div class="card">
             <div class="card-header">

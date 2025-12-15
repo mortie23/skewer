@@ -89,7 +89,7 @@ def get_record(
     :param table_name: The name of the table.
     :param key_column: The column to search on (e.g., Primary Key).
     :param key_value: The value to match.
-    :return: A tuple of (column_names, row_tuple). Row is None if not found.
+    :return: A tuple of (column_names, first_row, total_count). Row is None if not found.
     """
     safe_db = f'"{database_name}"'
     safe_table = f'"{table_name}"'
@@ -100,6 +100,10 @@ def get_record(
     conn = db.get_db()
     with conn.cursor() as cur:
         cur.execute(query, (key_value,))
-        row = cur.fetchone()
+        rows = cur.fetchall()
         columns = [desc[0] for desc in cur.description] if cur.description else []
-        return columns, row
+
+        total_count = len(rows)
+        first_row = rows[0] if rows else None
+
+        return columns, first_row, total_count
