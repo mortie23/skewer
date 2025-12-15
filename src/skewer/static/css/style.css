@@ -1,0 +1,44 @@
+.skewer-table-container {
+    max-height: 75vh;
+    overflow: auto;
+    border: 1px solid #dee2e6;
+    position: relative;
+}
+
+.skewer-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    z-index: 10;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+/* Wrap content nicely */
+.skewer-table td {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 300px;
+    min-width: 150px;
+    vertical-align: top;
+}
+
+/* Sticky first column (Frozen Row Headers) */
+.skewer-table td:first-child, 
+.skewer-table th:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #fff;
+    z-index: 5;
+    border-right: 2px solid #dee2e6;
+}
+
+/* Fix z-index for intersection of top header and first column */
+.skewer-table thead th:first-child {
+    z-index: 15;
+    background-color: #f8f9fa;
+}
+
+/* Ensure rows verify alternating colors if striped (optional) but stickiness needs bg color */
+.skewer-table tr:nth-child(even) td:first-child {
+   background-color: #f2f2f2; /* approx bootstrap table-striped color if needed, else white */
+}

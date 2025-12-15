@@ -22,9 +22,10 @@
         <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
 
+
         {% if columns %}
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover table-sm">
+        <div class="skewer-table-container border rounded shadow-sm">
+            <table class="table table-bordered table-striped table-hover table-sm skewer-table mb-0">
                 <thead class="table-light">
                     <tr>
                         {% for col in columns %}
